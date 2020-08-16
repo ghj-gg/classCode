@@ -5,6 +5,7 @@ import com.sfac.javaSpringBoot.modules.common.vo.Result;
 import com.sfac.javaSpringBoot.modules.common.vo.SearchVo;
 import com.sfac.javaSpringBoot.modules.test.entity.City;
 import com.sfac.javaSpringBoot.modules.test.service.CityService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -67,4 +68,10 @@ public class CityController {
     public Result<Object> deleteCity(@PathVariable int cityId){
         return cityService.deleteCity(cityId);
     }
+
+    //public static void main(String[] args) {
+    //    System.out.println(String.format("%s--%S","ghj","ghj"));
+    //    System.out.println(StringUtils.isEmpty(" "));//false
+    //    System.out.println(StringUtils.isBlank(" "));//true
+    //}
 }
