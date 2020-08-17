@@ -29,7 +29,7 @@ import java.util.Arrays;
 public class RedisConfig {
 
     @Bean
-    @SuppressWarnings("all")
+    //@SuppressWarnings("all")
     public RedisTemplate<String, Object> redisTemplate (RedisConnectionFactory factory){
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
         redisTemplate.setConnectionFactory(factory);
