@@ -1,4 +1,25 @@
  This is Test Index Page!
+ <p>------------------------------------------------------------------</p>
+ <a href="/test/file?fileName=阿咕.jpg">download file</a>
+ <br>
+ <a href="/test/download1?fileName=阿咕.jpg">download1 file</a>
+ <br>
+ <a href="/test/download2?fileName=阿咕.jpg">download2 file</a>
+ <br>
+ <p th:text="${message}"></p>
+ <p>上传文件，使用multipart/form-data类型</p>
+ <form action="/test/file" method="post" enctype="multipart/form-data">
+  <input type="file" name="file">
+  <button type="submit">上传</button>
+ </form>
+ <br>
+ <form action="/test/files" method="post" enctype="multipart/form-data">
+  <input type="file" name="files">
+  <input type="file" name="files">
+  <button type="submit">上传</button>
+ </form>
+ <p>------------------------------------------------------------------</p>
+
  <h3>th:text</h3>
  <h1 th:text="${thymeleafTitle}">This is thymeleaf title</h1>
  <p th:text="${thymeleafTitle}">This is the thymeleaf ti-tle</p>
