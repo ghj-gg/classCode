@@ -56,6 +56,14 @@ public class TestController {
     private CountryService countryService;
 
     /**
+     * 127.0.0.1/test/indexSimple ------ get
+     */
+    @GetMapping("/indexSimple")
+    public String indexSimpleTestPage(){
+        return "indexSimple";
+    }
+
+    /**
      * 127.0.0.1:8085/test/logTest   -----get
      */
     @GetMapping("/logTest")
@@ -137,7 +145,7 @@ public class TestController {
             return "redirect:/test/index";
         }
         try {
-            String destFilePath = "E:\\华清远见\\七月\\SpringBoot\\Day8.18（文件上传）\\upload\\"+file.getOriginalFilename();
+            String destFilePath = "E:\\upload\\"+file.getOriginalFilename();
             File destFile = new File(destFilePath);
             file.transferTo(destFile);
             redirectAttributes.addFlashAttribute("message","Upload file success.");
@@ -159,7 +167,7 @@ public class TestController {
                 if (file.isEmpty()) {
                     continue;
                 }
-                String destFilePath = "E:\\华清远见\\七月\\SpringBoot\\Day8.18（文件上传）\\upload\\" + file.getOriginalFilename();
+                String destFilePath = "E:\\upload\\" + file.getOriginalFilename();
                 File destFile = new File(destFilePath);
                 file.transferTo(destFile);
                 empty = false;
@@ -184,7 +192,7 @@ public class TestController {
         Resource resource = null;
         try {
             String aa = new String(fileName.getBytes("utf-8"),"ISO-8859-1");
-            resource = new UrlResource(Paths.get("E:\\华清远见\\七月\\SpringBoot\\Day8.18（文件上传）\\upload\\"+fileName).toUri());
+            resource = new UrlResource(Paths.get("E:\\upload\\"+fileName).toUri());
 
             if (resource.exists() && resource.isReadable()){
                 return ResponseEntity.ok().header(
@@ -206,7 +214,7 @@ public class TestController {
     public void downloadFile1(HttpServletRequest request,
                               HttpServletResponse response,
                               @RequestParam String fileName){
-        String filePath = "E:\\华清远见\\七月\\SpringBoot\\Day8.18（文件上传）\\upload\\"+File.separator+fileName;
+        String filePath = "E:\\upload\\"+File.separator+fileName;
         File downloadFile = new File(filePath);
         if (downloadFile.exists()){
             String aa = null;
@@ -253,7 +261,7 @@ public class TestController {
     public void downloadFile2(HttpServletRequest request,
                               HttpServletResponse response,
                               @RequestParam String fileName){
-        String filePath = "E:\\华清远见\\七月\\SpringBoot\\Day8.18（文件上传）\\upload\\"+fileName;
+        String filePath = "E:\\upload\\"+fileName;
         File downloadFile = new File(filePath);
         try {
             if (downloadFile.exists()){
