@@ -9,9 +9,15 @@ import java.util.List;
 
 public interface UserService {
 
-    public Result<User> insertUser(User user);
+    Result<User> insertUser(User user);
 
-    public Result<User> login(User user);
+    Result<User> login(User user);
 
     PageInfo<User> getUserBySearchVo(SearchVo searchVo);
+
+    Result<User> updateUser(User user);
+
+    Result<Object> deleteUser(int userId);
+
+    User getUserByUserId(int userId);
 }
