@@ -145,7 +145,7 @@ public class TestController {
             return "redirect:/test/index";
         }
         try {
-            String destFilePath = "E:\\upload\\"+file.getOriginalFilename();
+            String destFilePath = "E:\\img\\upload\\"+file.getOriginalFilename();
             File destFile = new File(destFilePath);
             file.transferTo(destFile);
             redirectAttributes.addFlashAttribute("message","Upload file success.");
@@ -167,7 +167,7 @@ public class TestController {
                 if (file.isEmpty()) {
                     continue;
                 }
-                String destFilePath = "E:\\upload\\" + file.getOriginalFilename();
+                String destFilePath = "E:\\img\\upload\\" + file.getOriginalFilename();
                 File destFile = new File(destFilePath);
                 file.transferTo(destFile);
                 empty = false;
@@ -192,7 +192,7 @@ public class TestController {
         Resource resource = null;
         try {
             String aa = new String(fileName.getBytes("utf-8"),"ISO-8859-1");
-            resource = new UrlResource(Paths.get("E:\\upload\\"+fileName).toUri());
+            resource = new UrlResource(Paths.get("E:\\img\\upload\\"+fileName).toUri());
 
             if (resource.exists() && resource.isReadable()){
                 return ResponseEntity.ok().header(
@@ -214,7 +214,7 @@ public class TestController {
     public void downloadFile1(HttpServletRequest request,
                               HttpServletResponse response,
                               @RequestParam String fileName){
-        String filePath = "E:\\upload\\"+File.separator+fileName;
+        String filePath = "E:\\img\\upload\\"+File.separator+fileName;
         File downloadFile = new File(filePath);
         if (downloadFile.exists()){
             String aa = null;
@@ -261,7 +261,7 @@ public class TestController {
     public void downloadFile2(HttpServletRequest request,
                               HttpServletResponse response,
                               @RequestParam String fileName){
-        String filePath = "E:\\upload\\"+fileName;
+        String filePath = "E:\\img\\upload\\"+fileName;
         File downloadFile = new File(filePath);
         try {
             if (downloadFile.exists()){

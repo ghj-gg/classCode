@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title> *** manager system</title>
@@ -10,6 +13,7 @@
     <!--引入js-->
     <script th:src="${'/plugin/jquery/jquery.min.js'}" type="text/javascript"></script>
     <script th:src="${'/plugin/bootstrap/js/bootstrap.bundle.min.js'}" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" type="text/javascript"></script>
     <!--layer-->
     <script th:src="@{https://cdn.bootcss.com/layer/2.1/layer.js}" type="text/javascript"></script>
     <!--删除确认框-->

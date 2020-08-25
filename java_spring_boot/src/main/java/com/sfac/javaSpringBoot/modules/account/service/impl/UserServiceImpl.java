@@ -2,6 +2,7 @@ package com.sfac.javaSpringBoot.modules.account.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.sfac.javaSpringBoot.config.ResourceConfigBean;
 import com.sfac.javaSpringBoot.modules.account.dao.UserDao;
 import com.sfac.javaSpringBoot.modules.account.dao.UserRoleDao;
 import com.sfac.javaSpringBoot.modules.account.entity.Role;
@@ -13,6 +14,10 @@ import com.sfac.javaSpringBoot.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRoleDao userRoleDao;
+
+    @Autowired
+    private ResourceConfigBean resourceConfigBean;
 
     @Override
     @Transactional
@@ -65,6 +73,7 @@ public class UserServiceImpl implements UserService {
         if (userTemp != null && userTemp.getPassword().equals(MD5Util.getMD5(user.getPassword()))){
             return new Result<User>(Result.ResultStatus.SUCCESS.status,"Login success.");
         }
+
         return new Result<User>(Result.ResultStatus.FAILD.status,"User name or password error.");
     }
 
@@ -117,5 +126,48 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUserId(int userId) {
         return userDao.getUserByUserId(userId);
+    }
+
+    @Override
+    public Result<String> uploadUserImg(MultipartFile file) {
+        if (file.isEmpty()){
+            return new Result<String>(
+                    Result.ResultStatus.FAILD.status,"Please select img.");
+        }
+        String relativePath = "";
+        try {
+            String destFilePath = "";
+            String osName = System.getProperty("os.name");
+            if (osName.toLowerCase().startsWith("win")){
+                destFilePath = resourceConfigBean.getLocationPathForWindows()
+                        + file.getOriginalFilename();
+            }else {
+                destFilePath = resourceConfigBean.getLocationPathForLinux()
+                        + file.getOriginalFilename();
+            }
+            relativePath = resourceConfigBean.getRelativePath() +
+                    file.getOriginalFilename();
+
+            File destFile = new File(destFilePath);
+            file.transferTo(destFile);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new Result<String>(Result.ResultStatus.FAILD.status,"Upload failed.");
+        }
+        return new Result<String>(
+                Result.ResultStatus.SUCCESS.status,"Upload success.",relativePath);
+    }
+
+    @Override
+    @Transactional
+    public Result<User> updateUserProfile(User user) {
+        //判断传入的user是否存在
+        User userTemp = userDao.selectUserByUserName(user.getUserName());
+        if (userTemp != null && userTemp.getUserId() != user.getUserId()){
+            return new Result<User>(Result.ResultStatus.FAILD.status,"User name is repeat.");
+        }
+        userDao.updateUser(user);
+        return new Result<User>(Result.ResultStatus.SUCCESS.status,"update success.",user);
     }
 }
