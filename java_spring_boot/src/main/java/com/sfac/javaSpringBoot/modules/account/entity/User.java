@@ -86,7 +86,7 @@ public class User implements Serializable {
         this.accountName = accountName;
     }
 
-    public boolean isRememberMe() {
+    public boolean getRememberMe() {
         return rememberMe;
     }
 

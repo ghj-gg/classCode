@@ -5,6 +5,7 @@ import com.sfac.javaSpringBoot.modules.account.entity.User;
 import com.sfac.javaSpringBoot.modules.account.service.UserService;
 import com.sfac.javaSpringBoot.modules.common.vo.Result;
 import com.sfac.javaSpringBoot.modules.common.vo.SearchVo;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +62,7 @@ public class UserController {
      * 127.0.0.1/api/user/1 ------- delete
      */
     @DeleteMapping("/user/{userId}")
+    @RequiresPermissions(value = "/api/user")
     public Result<Object> deleteUser(@PathVariable int userId){
         return userService.deleteUser(userId);
     }
@@ -88,4 +90,5 @@ public class UserController {
     public Result<User> updateUserProfile(@RequestBody User user){
         return userService.updateUserProfile(user);
     }
+
 }

@@ -58,7 +58,10 @@
                                          title="Change the avatar" style="width: 220px; height: 220px;">
                                 </div>
                             </div>
-                            <h3>Samuel Doe</h3>
+                            <h3>
+                                <span shiro:principal property="userName"/>
+                                <input type="hidden" id="userId" th:value="${session.user.userId}">
+                            </h3>
 
                             <ul class="list-unstyled user_data">
                                 <li><i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA
@@ -309,7 +312,7 @@
     $(document).ready(function(){
         initFileInput();
 
-        initUserProfile(4);
+        initUserProfile($("#userId").val());
 
         $("#editProfile").bind("click", function(){
             editProfile();

@@ -53,4 +53,8 @@ public interface UserDao {
             }
     )
     User getUserByUserId(int userId);
+
+    @Select("select * from user where user_name = #{userName}")
+    @ResultMap(value = "userResults")
+    User getUserByUserName(String userName);
 }

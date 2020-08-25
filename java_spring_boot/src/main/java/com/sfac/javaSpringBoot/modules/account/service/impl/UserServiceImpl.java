@@ -11,6 +11,10 @@ import com.sfac.javaSpringBoot.modules.account.service.UserService;
 import com.sfac.javaSpringBoot.modules.common.vo.Result;
 import com.sfac.javaSpringBoot.modules.common.vo.SearchVo;
 import com.sfac.javaSpringBoot.utils.MD5Util;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,12 +73,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result<User> login(User user) {
-        User userTemp = userDao.selectUserByUserName(user.getUserName());
-        if (userTemp != null && userTemp.getPassword().equals(MD5Util.getMD5(user.getPassword()))){
-            return new Result<User>(Result.ResultStatus.SUCCESS.status,"Login success.");
+        Subject subject = SecurityUtils.getSubject();
+
+        //令牌
+        UsernamePasswordToken usernamePasswordToken =
+                new UsernamePasswordToken(user.getUserName(),MD5Util.getMD5(user.getPassword()));
+        usernamePasswordToken.setRememberMe(user.getRememberMe());
+
+        try {
+            subject.login(usernamePasswordToken);
+            subject.checkRoles();
+        }catch (Exception e){
+            return new Result<User>(Result.ResultStatus.FAILD.status,"User name or password error.");
         }
 
-        return new Result<User>(Result.ResultStatus.FAILD.status,"User name or password error.");
+        Session session = subject.getSession();
+        session.setAttribute("user",(User)subject.getPrincipal());
+
+        return new Result<User>(Result.ResultStatus.SUCCESS.status,"Login success.");
+
     }
 
     @Override
@@ -169,5 +186,18 @@ public class UserServiceImpl implements UserService {
         }
         userDao.updateUser(user);
         return new Result<User>(Result.ResultStatus.SUCCESS.status,"update success.",user);
+    }
+
+    @Override
+    public User getUserByUserName(String userName) {
+        return userDao.getUserByUserName(userName);
+    }
+
+    @Override
+    public void logout() {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        Session session = subject.getSession();
+        session.setAttribute("user",null);
     }
 }

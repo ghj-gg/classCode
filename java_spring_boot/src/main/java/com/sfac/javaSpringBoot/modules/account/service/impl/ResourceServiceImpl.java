@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,5 +26,11 @@ public class ResourceServiceImpl implements ResourceService {
                 Optional.ofNullable(resourceDao.getResourcesBySearchVo(searchVo))
                 .orElse(Collections.emptyList())
         );
+    }
+
+    @Override
+    public List<Resource> getResourcesByRoleId(int roleId) {
+
+        return null;
     }
 }
