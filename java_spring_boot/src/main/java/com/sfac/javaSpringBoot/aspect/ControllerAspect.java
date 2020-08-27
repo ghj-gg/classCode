@@ -1,6 +1,7 @@
 package com.sfac.javaSpringBoot.aspect;
 
 
+import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -45,6 +46,8 @@ public class ControllerAspect {
         LOGGER.debug("请求方式:"+request.getMethod());
         LOGGER.debug("响应方法："+joinPoint.getSignature().getDeclaringTypeName()+"."+joinPoint.getSignature().getName());
         LOGGER.debug("请求参数："+ Arrays.toString(joinPoint.getArgs()));
+        LOGGER.debug(SecurityUtils.getSubject().isRemembered()+
+                "---"+SecurityUtils.getSubject().isAuthenticated());
     }
 
     @Around(value = "com.sfac.javaSpringBoot.aspect.ControllerAspect.controllerPointCut()")

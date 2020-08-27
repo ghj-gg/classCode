@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 
         //令牌
         UsernamePasswordToken usernamePasswordToken =
-                new UsernamePasswordToken(user.getUserName(),MD5Util.getMD5(user.getPassword()));
+                new UsernamePasswordToken(user.getAccountName(),MD5Util.getMD5(user.getPassword()));
         usernamePasswordToken.setRememberMe(user.getRememberMe());
 
         try {

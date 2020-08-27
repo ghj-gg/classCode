@@ -15,7 +15,7 @@
                 <span>Welcome,</span>
                 <h2>
                     <span shiro:principal property="userName"/>
-                    <input type="hidden" id="userId" th:value="${session.user.userId}">
+                    <span style="display: none" id="userId"><shiro:principal property="userId"/></span>
                 </h2>
             </div>
         </div>

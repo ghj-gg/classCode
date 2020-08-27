@@ -10,8 +10,9 @@
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
                         <img src="/images/img.png" alt="">
                         <span shiro:principal property="userName"/>
-                        <input type="hidden" id="userId" th:value="${session.user.userId}">
+                        <!--<input type="hidden" id="userId" th:value="${session.user.userId}">-->
                     </a>
+                    <span style="display: none" id="userId"><shiro:principal property="userId"/></span>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item"  href="/account/profile"> Profile</a>
                         <a class="dropdown-item"  href="javascript:;">
