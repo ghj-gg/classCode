@@ -1,0 +1,109 @@
+﻿一、选择题（共12小题，每小题2.5分，共30分）
+	以下不是spring boot优点的是 ( D )
+		A．快速搭建项目
+		B．简化配置  
+		C．自动配置  
+		D．无需容器
+	Spring Boot配置，以下哪个优先级最高（A ）
+		A、外置：xx.jar同目录下/config/application.properties；
+		B、外置：xx.jar同目录下/config/application.yml；
+		C、内置：src/main/resources/config；
+		D、内置：src/main/resources
+	以下log日志级别哪个最高（D）
+		A、DEBUG
+		B、INFO
+		C、WARN
+		D、ERROR
+	以下不是spring boot的核心注解的是 ( D )
+		A.	@SpringBootConfiguration
+		B.	@EnableAutoConfiguration
+		C.	@ComponentScan
+		D.	@MapperScan
+	要使用springMVC的功能，需要导入那个包 (C  )
+		A．spring-boot-starter-jdbc  
+		B．spring-boot-starter-thymeleaf  
+		C．spring-boot-starter-web  
+		D．mybatis-spring-boot-starter
+	以下哪个注解不能加在类上 ( B )
+		A.	@Controller
+		B.	@ResponseBody
+		C.	@RestController
+		D.	@RequestMapping
+	当控制层上有@RestController注解时，方法中返回一个字符串“<h1>Hello</h1>”，浏览器调用的结果是 ( D )
+		A. 一级标题显示的Hello
+		B.	找不到Hello.html
+		C.	<h1>Hello</>
+		D.	Hello
+	SpringBoot项目中配置文件的格式 (C  )
+		A．properties  
+		B．yml  
+		C．两者都可以
+	不是SpringBoot核心配置文件是（A）
+		A.	bootstrap
+		B.	application
+		C.	application-dev
+	前台使用json参数格式，控制器consumer、参数使用的注解是（A）
+		A、application/josn ---- @RequestBody
+		B、application/josn ---- @ModelAttribute
+		C、application/x-www-form-urlencoded ---- @RequestBody
+		D、application/x-www-form-urlencoded ---- @ModelAttribute
+	@Pointcut("execution(public * com.thornBird.sbd.modules.*.controller.*.*(..))")，第三个*代表（C）
+		A、代表返回类型不限
+		B、代表module下所有子包
+		C、代表所有类
+		D、代表所有方法
+	Url匹配风格中/admin*，以下哪个匹配不正确（D）
+		A、/admin
+		B、/admin1
+		C、/admin123
+		D、/admin/1
+	Mybatis框架中，插入数据使用那个注解（B）
+		A、@Update
+		B、@Insert
+		C、@Select
+		D、@InsertMapping
+
+二、填空题（共5小题，每小题5分，共25分）
+	获取配置文件的属性值，使用哪个注解____@Value___________；
+	Java配置依赖的2个注解是_@Configuration_________，__@Bean_________;
+	Spring Boot修改tomcat端口号为9090应该怎么写？_server.port=9090___________;
+	自定义拦截器需要实现_HandlerInterceptor_______接口；
+	过滤器需要使用_@WebFilter________注解;
+	上传文件，使用_MultipartFile___接收文件对象，consumer使用_multipart/form-data____;
+
+三、问答题（每题5分，共25分）
+	阐述 Spring Boot 特性，举一个例子来解释 Staters 的内容；
+	答：特性：快速搭建项目，遵循习惯优于配置，内置有Servlet容器，无需外置Tomcat，使编码更简单
+	    举例：
+	Mybatis传参中，#{*}、${*}的区别？
+	答：#{*}代表可以有双引号，防止sql注入，${*}没有双引号，适用于排序等
+	简述Restful规则？
+	答：路径规范化，路径上不出现动词
+            例如：api/user/1  -------  get
+                  api/users  --------  get
+                  api/user  --------  post
+		  api/user  ------  put 
+		  
+	简述Git使用流程，写几个常用Git命令？
+	答：流程：在本地一个磁盘上建一个本地仓库，在GitHub上建一个远程仓库，得到远程仓库的地址，在本地仓库将远程仓库clone下来，在idea上创建项目，将该项目存放在本地仓库上，再将项目中的类等文件，通过commit and pull 和push到远程仓库。
+	    常用Git命令：git clone url
+                         git commit
+                         git add
+	简述shiro两大功能实现流程；
+	答：认证：用户通过用户名和密码登录，将用户名个密码传到UserServiceImpl中，通过令牌类包装成令牌，通过Subject调用MyRealm，包装身份验证器，用身份验证器与令牌类比较，如果密码和用户名正确，就跳转到主页。
+            授权：在用户认证过程中，Subject调用checkroles(),如果用户登录成功，跳转到主页，主页中有shiro标签，使用MyReaml里边查询到的角色与前端有shiro标签的角色作比较，符合的就显示出来。
+四、编程题（每题10分，共20分）
+	1、提供一个接口，返回 List<User> 列表，对该列表进行排序、保留10条数据；页面端使用 ajax post 方式提交请求，包装查询参数，获取接口返回数据，并遍历数据渲染到页面上 table 表格中；
+Dao层	
+@Select("select * from user order by user_id desc")
+List<User> getUsers();
+
+Service层
+List<User> getUsers();
+ServiceImpl层
+List<User> getUsers(){
+  return userDao.getUsers();
+}
+
+
+	2、设计一套购物车接口，以 Cookie 或者 redis 实现
