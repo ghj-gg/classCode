@@ -19,5 +19,5 @@ public interface RoleService {
 
     Result<Role> insertRole(Role role);
 
-    List<Role> getRolesByRoleId(int roleId);
+    Role getRolesByRoleId(int roleId);
 }

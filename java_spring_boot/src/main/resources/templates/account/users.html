@@ -115,6 +115,7 @@
             'ordering': true,//代表每一列排序按钮
             'autoWidth': false,//自动设置每一列的宽度
             "ajax": function (data, callback, settings) {
+
                 // 从data获取查询数据
                 var columIndex = data.order[0].column;
                 var sort = data.order[0].dir;
@@ -146,8 +147,7 @@
                             //调用回调函数，将table的数据结构作为参数放进去
                             callback(fData);
                             return;
-                        }
-                        ;
+                        };
                         //返回当前页的数据的list
                         if (rs.list == null) {
                             //移除
@@ -211,7 +211,7 @@
         user.userName = $("#userNameForAddPage").val();
         user.password = $("#passwordForAddPage").val();
         var roles = new Array();
-        $.each($("input[name='rolesForEditPage']"),function () {
+        $.each($("input[name='roleElementForAdd']"),function () {
             //判断每个元素是否勾选了
             if (this.checked){
                 var role = {};

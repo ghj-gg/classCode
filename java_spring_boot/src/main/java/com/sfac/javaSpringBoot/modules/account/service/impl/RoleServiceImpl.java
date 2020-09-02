@@ -72,7 +72,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Role> getRolesByRoleId(int roleId) {
-       return Optional.ofNullable(roleDao.getRolesByRoleId(roleId)).orElse(Collections.emptyList());
+    public Role getRolesByRoleId(int roleId) {
+       return roleDao.getRolesByRoleId(roleId);
     }
 }

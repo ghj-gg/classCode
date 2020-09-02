@@ -15,7 +15,7 @@
                 <span>Welcome,</span>
                 <h2>
                     <span shiro:principal property="userName"/>
-                    <span style="display: none" id="userId"><shiro:principal property="userId"/></span>
+                    <!--<span style="display: none" id="userId"><shiro:principal property="userId"/></span>-->
                 </h2>
             </div>
         </div>
@@ -34,8 +34,8 @@
                     <li><a><i class="fa fa-user"></i> Account <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li shiro:hasAnyRoles="admin,manager,staff"><a href="/account/users">Users</a></li>
-                            <li shiro:hasAnyRoles="admin,manager"><a href="index2.html">Roles</a></li>
-                            <li shiro:hasAnyRoles="admin,manager"><a href="index3.html">Resources</a></li>
+                            <li shiro:hasAnyRoles="admin,manager"><a href="/account/roles">Roles</a></li>
+                            <li shiro:hasAnyRoles="admin,manager"><a href="/account/resources">Resources</a></li>
                         </ul>
                     </li>
                     <!--三级-->

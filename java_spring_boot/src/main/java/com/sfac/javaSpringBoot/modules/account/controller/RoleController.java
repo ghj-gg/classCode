@@ -65,7 +65,7 @@ public class RoleController {
      * 127.0.0.1/api/role/3 -----get
      */
     @GetMapping("/role/{roleId}")
-    List<Role> getRolesByRoleId(@PathVariable int roleId){
+    Role getRolesByRoleId(@PathVariable int roleId){
         return roleService.getRolesByRoleId(roleId);
     }
 }

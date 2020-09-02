@@ -60,8 +60,10 @@
                             </div>
                             <h3>
                                 <span shiro:principal property="userName"/>
-                                <input type="hidden" id="userId" th:value="${session.user.userId}">
+                                <span style="display: none" id="userId"><shiro:principal property="userId"/></span>
+                                <!--<input type="hidden" id="userId" th:value="${session.user.userId}">-->
                             </h3>
+
 
                             <ul class="list-unstyled user_data">
                                 <li><i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA
@@ -310,9 +312,10 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+
         initFileInput();
 
-        initUserProfile($("#userId").val());
+        initUserProfile($("#userId").html());
 
         $("#editProfile").bind("click", function(){
             editProfile();
@@ -344,7 +347,7 @@
     //修改个人信息
     function editProfile() {
         var user = {};
-        user.userId = $("#userId").val();
+        user.userId = $("#userId").html();
         user.userName = $("#userName").val();
         user.userImg = $("#userImg").val();
 

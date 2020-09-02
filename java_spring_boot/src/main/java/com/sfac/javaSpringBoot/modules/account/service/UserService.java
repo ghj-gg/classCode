@@ -6,8 +6,6 @@ import com.sfac.javaSpringBoot.modules.common.vo.Result;
 import com.sfac.javaSpringBoot.modules.common.vo.SearchVo;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 public interface UserService {
 
     Result<User> insertUser(User user);

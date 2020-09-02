@@ -119,7 +119,7 @@ public class ShiroConfig {
         //使用HttpOnly cookie有助于减少某些类型的跨站点脚本攻击
         simpleCookie.setHttpOnly(true);
         //记住我cookie生效时间，单位是秒
-        simpleCookie.setMaxAge(1*24*60*60);
+        simpleCookie.setMaxAge(10*24*60*60);
         return simpleCookie;
     }
 
@@ -130,7 +130,7 @@ public class ShiroConfig {
     public CookieRememberMeManager rememberMeManager(){
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
-        byte[] cipherKey = Base64.decode("wGiHplamyXlVB11UXWol8g==");
+        byte[] cipherKey = Base64.decode("wGiHplamyXlVB11UXWol8g====");
         cookieRememberMeManager.setCipherService(new AesCipherService());
         cookieRememberMeManager.setCipherKey(cipherKey);
         return cookieRememberMeManager;
