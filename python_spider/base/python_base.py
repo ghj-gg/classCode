@@ -106,6 +106,10 @@ if re.match(email_re, "ghj@qq.com"):
     print("ok")
 else:
     print("error")
+ma = re.match("c", "abcd")
+print(ma)  # None
+sea = re.search("c", "abcd")
+print(sea)  # <re.Match object; span=(2, 3), match='c'>
 
 # ------切分字符串--------
 print("a b c".split(" "))  # ['a', 'b', 'c']
