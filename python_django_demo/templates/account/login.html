@@ -32,7 +32,7 @@
 
                     <div class="separator">
                         <p class="change_link">New to site?
-                            <a href="/account/register" class="to_register"> Create Account </a>
+                            <a href="/account/registerVue" class="to_register"> Create Account </a>
                         </p>
 
                         <div class="clearfix"></div>
@@ -79,7 +79,7 @@
             user.rememberMe = $("[name=rememberMe]").prop("checked")
 
             $.ajax({
-                url:"/api/login",
+                url:"/user",
                 type:"post",
                 contentType:"application/json",
                 data:JSON.stringify(user),

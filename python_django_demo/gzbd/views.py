@@ -10,6 +10,7 @@ import datetime
 from django.core import serializers
 import json
 from django.shortcuts import render
+from common.result import *
 
 def hello_world(request):
     return HttpResponse("Hello World!")
@@ -31,6 +32,95 @@ def index(request):
     contex = {}
     return render(request, "index.html", contex)
 
+'''
+http://127.0.0.1:8080/user/1 --- get
+http://127.0.0.1:8080/user/2 --- delete
+'''
+def user(request, id):
+    if request.method == "GET":
+        user = User.objects.get(id=id)
+        print(user.user_name)
+        user_result = {}
+        user_result["id"] = user.id
+        user_result["user_name"] = user.user_name
+        user_result["password"] = user.password
+        user_result["user_email"] = user.user_email
+        user_result["create_date"] = user.create_date
+        return JsonResponse(user_result, safe=False)
+    elif request.method == "DELETE":
+        User.objects.filter(id=id).delete()
+        return JsonResponse(Result(status=200, message="delete success").result(), safe=False)
+    else:
+        return JsonResponse(Result(status=200, message="No opration for user").result(), safe=False)
+
+'''
+http://127.0.0.1:8080/user?userName=ghj9&password=111111 --- get
+http://127.0.0.1:8080/user --- post
+{"user_name":"ghj","password":"111111"}
+http://127.0.0.1:8080/user --- put
+{"id":"1","user_name":"ghj","password":"111111"}
+'''
+def user_(request):
+    if request.method == "GET":
+        user_name = request.GET.get("userName")
+        password = request.GET.get("password")
+        print("user_")
+        user = User.objects.filter(user_name=user_name, password=password).first()
+        if user:
+            user_result = {}
+            user_result["id"] = user.id
+            user_result["user_name"] = user.user_name
+            user_result["password"] = user.password
+            user_result["user_email"] = user.user_email
+            user_result["create_date"] = user.create_date
+            return JsonResponse(user_result, safe=False)
+        else:
+            return JsonResponse(Result(status=500, message="No user find").result(), safe=False)
+    elif request.method == "POST":
+        # 获取查询参数、form表单参数
+        user_name = request.POST.get("userName")
+        password = request.POST.get("password")
+        # 获取json数据
+        query = json.loads(request.body)
+        user_name = query.get("userName")
+        password = query.get("password")
+        user = User(user_name=user_name, password=password, create_date=datetime.datetime.now())
+        user.save()
+        return JsonResponse(Result(status=200, message="Insert user").result(), safe=False)
+    elif request.method == "PUT":
+        query = json.loads(request.body)
+        id = query.get("userId")
+        user_name = query.get("userName")
+        user_email = query.get("userEmail")
+        user = User.objects.get(id=id)
+        user.user_name = user_name
+        user.user_email = user_email
+        user.save()
+        return JsonResponse(Result(status=200, message="Update success").result(), safe=False)
+    else:
+        return JsonResponse(Result(status=200, message="No opration for user").result(), safe=False)
+
+'''
+http://127.0.0.1:8080/gzbd
+'''
+def gzbd(request):
+    gzbds = Epidemic.objects.all()[0:7]
+    gzbd_list = []
+    for item in gzbds:
+        epidemic = {}
+        epidemic["id"] = item.id
+        epidemic["region"] = item.region
+        epidemic["date"] = item.date
+        epidemic["diagnosis"] = item.diagnosis
+        epidemic["overseas_import"] = item.overseas_import
+        epidemic["cure"] = item.cure
+        epidemic["death"] = item.death
+        gzbd_list.append(epidemic)
+    return JsonResponse(gzbd_list, safe=False)
+
+'''
+页面跳转
+'''
 def test_index(request):
     contex = {}
     contex["name"] = "ghj"

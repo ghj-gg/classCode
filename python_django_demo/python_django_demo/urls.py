@@ -10,7 +10,17 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^helloWorld$', views.hello_world),
     re_path(r'^test/index$', views.test_index),
-    re_path(r'^user$', views.insert_user),
+    # re_path(r'^user$', views.insert_user),
+
+    # 业务逻辑处理
+    # ----- user -----
+    re_path(r'^user/(\d+)$', views.user),
+    re_path(r'^user$', views.user_),
+
+    # ------ gzbd -----
+    re_path(r'^gzbd$', views.gzbd),
+
+    # 页面跳转
     re_path(r'^index$', views.index),
     re_path(r'^indexSimple$', views.index_simple),
     re_path(r'^common/dashboard$', views.common_dashboard),

@@ -57,7 +57,7 @@ def get_gzbd_data():
     return mysql_util.execute_(sql)
 
 if __name__ == "__main__":
-    # storage_mysql()
+    storage_mysql()
     # storage_excel()
     pass
 

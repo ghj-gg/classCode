@@ -328,7 +328,7 @@
         //初始化编辑页面
         function initUserProfile(userId) {
             $.ajax({
-                url : "/api/user/" + userId,
+                url : "/user/" + userId,
                 type : "get",
                 contentType: "application/json",
                 success : function (rs) {
